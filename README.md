@@ -3,6 +3,8 @@
 .js
 https://github.com/riot/riot
 
+https://riot.js.org/api/
+
 .go
 https://github.com/go-ego/riot
 
