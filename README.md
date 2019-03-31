@@ -65,6 +65,171 @@ riot.tag('tag-name', my_tmpl.innerHTML, funciton(opts) {
 ```
 
 ```js
+import route form 'riot-route'
+
+route(function(collection, id, action) {
+})
+
+collection = 'customers'
+id = '1111'
+aciton = 'edit'
+
+route('/fruit', function(name) {
+  console.log('The list of fruits')
+})
+
+route('/fruit/*', function(name) {
+  console.log('The detail of ' + name)
+})
+
+route('/blog/*-*/*', function(year, month, date) {
+  console.log('The page of ' + year + '-' + month + '-' date)
+})
+
+route('/odl', function() {
+  console.log('The pages under /old was moved.')
+})
+
+route('/search..', function() {
+  var q = route.query()
+  console.log('Search keyword: ' + q.keyword)
+})
+
+route('/search?keyword=*', function(keyword) {
+  console.log('Search keyword: ' + keyword)
+})
+
+var subRoute = route.create()
+subRoute('/fruit/apple', function() {})
+
+
+route('customers/xxx/edit')
+
+route('customers/xxx/edit', 'Editing customer page')
+
+route('not-fould', 'not found', true)
+
+route.start()
+
+route.start(true)
+
+route.start()
+route.exec()
+
+route.stop()
+
+route.stop()
+route.start()
+
+var subRoute = route.create()
+subRoute('/fuit/apple', funciton() {})
+subRoute.stop()
+
+route(function() {})
+route.exec()
+
+route('/search..', function() {
+  var q = route.query()
+  console.log('Search keyword: ' + q.keyword)
+  console.log('Search limit: ' + q.limit)
+})
+
+route.base('/app')
+route.base('#!')
+
+route.parser(function(path) {
+  var raw = path.slice(2).split('?'),
+    uri = raw[0].split('/'),
+    qs = raw[1],
+    params = {}
+    
+  if (qs) {
+    qs.split('&').forEach(function(v) {
+      var c = v.split('=')
+      params[c[0]] = c[1]
+    })
+  }
+  
+  uri.push(params)
+  return uri
+})
+
+route(function(target, action, params) {
+})
+
+
+function second(path, filter) {
+  var re = new RegExp('^' + filter.replace(/\*/g, '([^/?#]+?)').replace(/\.\./, '.*') + '$')
+  if (args = path.match(re)) return args.slice(1)
+}
+
+route.parser(first, second)
+
+route('/fruit/*', function(name) {})
+route('/fruit/apple', function() {})
+route('/fruit/orange', function() {})
+
+this.on('route', id => {
+  this.message = 'now loading...'
+  getUserById(id).then(user => {
+    this.update({
+      message: `Hello ${ user.name }!`
+    })
+  })
+})
+
+this.on('route', name => this.name = name)
+
+const route = require('riot-route/tag')
+
+
+riot.settings.keepValueAttributes = true
+
+riot.settings.skipAnonymouseTags = false
+
+riot.settings.autoUpdate = false
+
+riot.settings.brackets = '[% %]'
+
+riot.settings.asyncRenderTimeout = 2000
+
+riot.util.tmpl.errorHandler = funciton (err) {
+  console.error(err.message + ' in ' + err.riotData.tagName)
+}
+
+riot.tag('foo', '<p>{ msg }</p>', function() {
+  this.msg = 'hi'
+})
+riot.mount('foo')
+console.log(riot.vdom[0].msg)
+function Car() {
+  riot.observable(this)
+  
+  this.on('start', function() {
+  })
+}
+var car = new Car()
+car.trigger('start')
+
+el.on('start', function(args) {
+})
+
+el.on('*', funciton(event, paraml, param2) {
+})
+
+el.off('start')
+
+function doIt() {
+  console.log('starting or ending')
+}
+el.on('start', doIt)
+el.off('start', doIt)
+
+el.trigger('start')
+el.trigger('render')
+
+el.on('start', function(engine_details, is_rainy_day))
+el.trigger('start', { fule: 89 }, true)
 riot.compile(function() {
   var tags = riot.mount('*')
 })
