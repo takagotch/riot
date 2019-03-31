@@ -76,5 +76,40 @@ func main() {
   searcher.Index("1", types.DocData{Content: text})
   searcher.Index("2", types.DocData{Content: text1}, false)
   searcher.IndexDoc("3", types.DocData{Content: text2}, true)
+  
+  searcher.Flush()
+  
+  log.Print(searcher.Search(types.Search(types.SearchReq{Text:"google testing"})))
 }
+
+
+package main
+
+import (
+  "log"
+  
+  "github.com/go-ego/riot"
+  "github.com/go-ego/riot/types"
+)
+
+var (
+  searcher = riot.New("zh")
+)
+
+func main() {
+  data := types.DocData{Content: `I wonder how, I wonder why
+    , I wonder where they are`}
+  data1 := types.DocData{Content: "xxx"}
+  data2 := types.DocData{Content: "xxx"}
+  
+  searcher.Index{"1", data}
+  searcher.Index{"2", data2}
+  searcher.Index("3", data2)
+  searcher.Flush()
+  
+  req := types.SearchReq{Text: "xx"}
+  search := searcher.Search(req)
+  log.Println("search...", search)
+}
+
 ```
